@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">  <!-- Устанавливаем кодировку документа -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- Устанавливаем масштаб страницы -->
+    <title>Анкета</title>  <!-- Устанавливаем заголовок страницы -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  <!-- Подключаем стили Bootstrap -->
+</head>
+<body>
+<div class="container">  <!-- Контейнер Bootstrap -->
+    <h1>Анкета</h1>
+    <form method="post" action="/">  <!-- Форма, отправляющая данные методом POST на текущий URL -->
+        <div class="form-group">
+            <label for="name">Имя</label>
+            <input type="text" class="form-control {% if errors.name %}is-invalid{% endif %}" id="name" name="name" value="{{ name }}">  <!-- Поле ввода для имени с валидацией -->
+        </div>
+        <div class="form-group">
+            <label for="city">Город</label>
+            <input type="text" class="form-control {% if errors.city %}is-invalid{% endif %}" id="city" name="city" value="{{ city }}">  <!-- Поле ввода для города с валидацией -->
+        </div>
+        <div class="form-group">
+            <label for="hobby">Хобби</label>
+            <input type="text" class="form-control {% if errors.hobby %}is-invalid{% endif %}" id="hobby" name="hobby" value="{{ hobby }}">  <!-- Поле ввода для хобби с валидацией -->
+        </div>
+        <div class="form-group">
+            <label for="age">Возраст</label>
+            <input type="number" class="form-control {% if errors.age %}is-invalid{% endif %}" id="age" name="age" value="{{ age }}" min="1" max="151">  <!-- Поле ввода для возраста с валидацией -->
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>  <!-- Кнопка отправки формы -->
+    </form>
+    <br>
+    {% with messages = get_flashed_messages(with_categories=true) %}  <!-- Получаем сообщения из flash -->
+    {% if messages %}  <!-- Если есть сообщения -->
+    {% for category, message in messages %}  <!-- Перебираем сообщения -->
+    <div class="alert alert-{{ category }}">  <!-- Отображаем сообщение в виде alert -->
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+</body>
+</html>
